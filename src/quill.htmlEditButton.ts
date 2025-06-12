@@ -42,7 +42,7 @@ class htmlEditButton {
       const [range] = quill.selection.getRange();
       quill.updateContents(delta, Quill.sources.USER);
       quill.setSelection(
-        delta.length() - range?.length,
+        delta.length() - (range?.length || 0),
         Quill.sources.SILENT
       );
       quill.scrollSelectionIntoView();
