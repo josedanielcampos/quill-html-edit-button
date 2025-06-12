@@ -38,6 +38,14 @@ class htmlEditButton {
     button.type = "button";
     const onSave = (html: string) => {
       quill.setContents([]);
+
+      const imgs = html.match(/<img\s[^>]*?src\s*=\s*['\"]([^'\"]*?)['\"][^>]*?>[/s/S]*/g);
+
+      for (let i = 0; imgs != null && i < imgs.length; i++) {
+        html = html.replace(imgs[i], `{{signalIMG}}`);
+        imgs[i] = imgs[i].replace(/src="image/gi, 'src="data:image');
+      }
+
       const delta = quill.clipboard.convert({ html });
       const [range] = quill.selection.getRange();
       quill.updateContents(delta, Quill.sources.USER);
@@ -46,6 +54,19 @@ class htmlEditButton {
         Quill.sources.SILENT
       );
       quill.scrollSelectionIntoView();
+
+      if (imgs && imgs.length > 0) {
+
+        let bufferText = $(".ql-editor").html();
+
+        for (let i = 0; i < imgs.length; i++) {
+          const img = imgs[i];
+          bufferText = bufferText.replace(/\{\{signalIMG\}\}/, img);
+        }
+
+        $(".ql-editor").html(bufferText);
+      }
+
       //quill.clipboard.dangerouslyPasteHTML(html);
     };
     button.onclick = function (e) {

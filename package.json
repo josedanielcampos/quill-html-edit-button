@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
+    "@types/jquery": "^3.5.32",
     "@types/node": "^14.14.22",
     "@types/quill": "^2.0.1",
     "css-loader": "^0.28.8",
@@ -41,7 +42,7 @@
     "style-loader": "^0.19.1",
     "ts-jest": "^26.4.4",
     "ts-loader": "^9.5.1",
-		"typescript": "^5.5.3",
+    "typescript": "^5.5.3",
     "webpack": "5.93.0",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "5.0.4"
