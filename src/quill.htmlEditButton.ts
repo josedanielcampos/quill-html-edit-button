@@ -37,7 +37,16 @@ class htmlEditButton {
     button.title = options.buttonTitle || "Show HTML source";
     button.type = "button";
     const onSave = (html: string) => {
-      quill.clipboard.dangerouslyPasteHTML(html);
+      quill.setContents([]);
+      const delta = quill.clipboard.convert({ html });
+      const [range] = quill.selection.getRange();
+      quill.updateContents(delta, Quill.sources.USER);
+      quill.setSelection(
+        delta.length() - range?.length,
+        Quill.sources.SILENT
+      );
+      quill.scrollSelectionIntoView();
+      //quill.clipboard.dangerouslyPasteHTML(html);
     };
     button.onclick = function (e) {
       e.preventDefault();
